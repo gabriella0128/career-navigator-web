@@ -1,0 +1,79 @@
+// vuetify style remove
+// btn
+.v-application .v-btn {
+  min-width: auto;
+  text-transform: none;
+  padding: 0 10px !important;
+  box-shadow: none !important;
+  background: transparent;
+  &:after {
+    display: none;
+  }
+  .v-btn__overlay {
+    display: none;
+  }
+  .v-btn__underlay {
+    display: none;
+  }
+  .v-btn__content {
+    gap: 5px;
+  }
+}
+// input
+.v-application .v-input {
+  flex: none;
+  .v-input__control {
+    // height: 100% !important; //기존스타일 지움
+    // min-height: 100% !important; //기존스타일 지움
+    .v-field {
+      padding: 0 !important; //기존스타일 지움
+      .v-field__overlay {
+        background-color: transparent !important; //기존스타일 지움
+      }
+      .v-field__loader {
+        display: none !important; //기존스타일 지움
+      }
+      .v-field__outline {
+        &:before {
+          display: none !important; //기존스타일 지움
+        }
+        &:after {
+          display: none !important; //기존스타일 지움
+        }
+      }
+      .v-field__field {
+        height: 100% !important; //기존스타일 지움
+        min-height: 100% !important; //기존스타일 지움
+        .v-field__input {
+          height: 100% !important; //기존스타일 지움
+          min-height: 100% !important; //기존스타일 지움
+          padding: 0; //기존스타일 지움
+          .v-select__selection {
+            .v-select__selection-text {
+            }
+          }
+        }
+      }
+      .v-field__append-inner {
+        height: 100% !important; //기존스타일 지움
+        min-height: 100% !important; //기존스타일 지움
+        .v-icon {
+          margin: 0;
+        }
+      }
+    }
+  }
+  .input-16-messages {
+    display: none; //기존스타일 지움
+  }
+  .v-input__details {
+    display: none !important; //기존스타일 지움
+  }
+}
+
+//   textarea
+.v-application .v-textarea {
+  .v-field__input {
+    mask-image: none !important; // 상단 그라디언트 지음
+  }
+}
