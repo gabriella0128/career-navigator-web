@@ -1,6 +1,6 @@
 <!-- Dashboard.vue -->
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { storeToRefs, useHandleApi, useDashboardStore } from "#imports";
 import type { CalendarDay } from "~/types/dashboard";
 const dashboardStore = useDashboardStore();
@@ -227,5 +227,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped></style>
