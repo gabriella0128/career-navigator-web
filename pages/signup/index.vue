@@ -92,8 +92,8 @@ const backToLogin = () => {
             input-name="userId"
             v-model="signupInfo.userId"
             label="아이디"
-            placeholder="대소문자·숫자 포함 8–20자"
-            :regex="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{8,20}$/"
+            placeholder="영문 소문자·숫자 포함 8–20자"
+            :regex="/^[a-z0-9]{8,20}$/"
           />
           <v-btn class="btn btn--check" @click.prevent="checkUserId">
             중복확인
