@@ -12,6 +12,7 @@ import {
   type CertificateReq,
   type LanguageReq,
   type ValidationError,
+  type ResumeListItem,
 } from "~/types/resume";
 import { ResumeAPI } from "~/api/resumeAPI";
 import type { ApiObject } from "~/types/api";
@@ -31,6 +32,8 @@ export const useResumeStore = defineStore("resume", () => {
     languages: [],
   });
 
+  const selectedResumeList = ref<ResumeListItem[]>([]);
+
   const updateResumeTitleReq = ref<string | null>("");
   const updateResumeSummaryReq = ref<string | null>("");
   const updateResumeEducationReq = ref<EducationReq[]>([]);
@@ -48,6 +51,10 @@ export const useResumeStore = defineStore("resume", () => {
     certificates: [],
     languages: [],
   });
+
+  const updateDetailResumeReq = (resumeIdx: number) => {
+    detailResumeReq.value.resumeIdx = resumeIdx;
+  };
 
   const detailResumeReq = ref<DetailResumeReq>({
     resumeIdx: null,
@@ -94,6 +101,13 @@ export const useResumeStore = defineStore("resume", () => {
   ) => {
     if (!result) return;
     selectedResume.value = result.data;
+  };
+
+  const updateResumeListCurrent = async (
+    result: CommonResponse<ResumeListItem[]> | null | void
+  ) => {
+    if (!result) return;
+    selectedResumeList.value = result.data;
   };
 
   // validation start
@@ -282,6 +296,23 @@ export const useResumeStore = defineStore("resume", () => {
     );
     return { data, error, execute, apiDesc };
   };
+
+  const changeResume: () => ApiObject<void> = () => {
+    const apiDesc = "대표 이력서 변경";
+    const { data, error, execute } = useCallAPI<CommonResponse<void>>(
+      ResumeAPI.CHANGE_RESUME,
+      detailResumeReq.value
+    );
+    return { data, error, execute, apiDesc };
+  };
+
+  const retrieveResumeList: () => ApiObject<ResumeListItem[]> = () => {
+    const apiDesc = "이력서 목록 조회 성공";
+    const { data, error, execute } = useCallAPI<
+      CommonResponse<ResumeListItem[]>
+    >(ResumeAPI.RETRIEVE_RESUME_LIST, null, updateResumeListCurrent);
+    return { data, error, execute, apiDesc };
+  };
   return {
     // state
     selectedResume,
@@ -289,6 +320,7 @@ export const useResumeStore = defineStore("resume", () => {
     detailResumeReq,
     modalMode,
     selectedUpdateItem,
+    selectedResumeList,
 
     updateResumeTitleReq,
     updateResumeSummaryReq,
@@ -310,10 +342,13 @@ export const useResumeStore = defineStore("resume", () => {
     resetUpdateResumeLanguageReq,
     validateSection,
     isBlank,
+    updateDetailResumeReq,
 
     // api call
     retrieveResumeDetail,
     insertResume,
     updateResume,
+    changeResume,
+    retrieveResumeList,
   };
 });

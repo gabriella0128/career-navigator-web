@@ -17,6 +17,7 @@ const {
 const { selectedResume, modalMode, selectedUpdateItem } =
   storeToRefs(resumeStore);
 const retrieveResumeDetail = () => resumeStore.retrieveResumeDetail();
+const retrieveResumeList = () => resumeStore.retrieveResumeList();
 
 const educationColumns = [
   { text: "학교명", value: "schoolName" },
@@ -134,7 +135,16 @@ const onEditLanguage = () => {
   });
 };
 
-const changeRepresentResume = () => {};
+const changeRepresentResume = async () => {
+  const result = await useHandleApi(retrieveResumeList());
+  if (!result) return;
+  showModal({
+    id: "resume-list-modal",
+    category: "resume",
+    component: "ResumeListModal",
+    title: "resume-list-modal",
+  });
+};
 
 const registerResume = () => {
   resetInsertResumeReq();

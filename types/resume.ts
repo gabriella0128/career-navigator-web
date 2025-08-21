@@ -148,3 +148,9 @@ export interface UpdateLanguageReq {
   resumeIdx: number;
   languages: LanguageReq[];
 }
+
+export interface ResumeListItem {
+  resumeIdx: number;
+  title: string;
+  createDt: string;
+}

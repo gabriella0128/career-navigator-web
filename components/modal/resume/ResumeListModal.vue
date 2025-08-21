@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useModalStore } from "~/stores/modal";
+import { useModalStore } from "#imports";
 import type { ModalButton } from "~/types/modal";
 
-/**
- *    메시지만 표시하는 모달
- */
 const modalStore = useModalStore();
-const { clearModal, getZIndex } = modalStore;
+const { clearModal } = modalStore;
 
 interface Props {
   id: string; // 모달 고유 아이디
@@ -20,6 +17,13 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const close = () => {
+  clearModal(props.id);
+  if (props.onClose) {
+    props.onClose();
+  }
+};
 
 const currentModal = computed(() => {
   return modalStore.modalStack.find((modal) => modal.id === props.id);
@@ -38,20 +42,10 @@ const isOpen = computed({
     }
   },
 });
-
-const zIndex = computed(() => getZIndex(props.id));
-
-const close = () => {
-  clearModal(props.id);
-  if (props.onClose) {
-    props.onClose();
-  }
-};
 </script>
-
 <template>
-  <div v-if="isOpen" class="modal-overlay" :id="props.id">
-    <div class="modal-container modal--sm">
+  <div v-if="isOpen" class="modal-overlay">
+    <div class="modal-container">
       <!-- 닫기 버튼 -->
       <div class="modal-header">
         <v-btn class="modal-close" @click="close">
@@ -59,29 +53,7 @@ const close = () => {
         </v-btn>
       </div>
       <div class="modal-body">
-        <!-- 아이콘 -->
-        <img
-          v-if="props.modalIconUrl"
-          :src="props.modalIconUrl"
-          alt="Icon"
-          class="modal-icon"
-        />
-
-        <!-- 텍스트 -->
-        <div class="modal-message" v-html="props.message"></div>
-
-        <!-- 액션 버튼들 -->
-        <div class="modal-actions">
-          <v-btn
-            v-for="(btn, idx) in props.buttons"
-            :key="idx"
-            class="modal-action-button"
-            :class="btn.class"
-            @click="btn.onClick"
-          >
-            {{ btn.label }}
-          </v-btn>
-        </div>
+        <ResumeModalList :id="props.id" />
       </div>
     </div>
   </div>

@@ -10,4 +10,6 @@ export const ResumeAPI = {
   UPDATE_SKILL: `${apiBase}/update-skill`,
   UPDATE_CERTIFICATE: `${apiBase}/update-certificate`,
   UPDATE_LANGUAGE: `${apiBase}/update-language`,
+  CHANGE_RESUME: `${apiBase}/change-resume`,
+  RETRIEVE_RESUME_LIST: `${apiBase}/retrieve-all-resume-list`,
 };

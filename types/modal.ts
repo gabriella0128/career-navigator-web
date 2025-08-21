@@ -4,7 +4,8 @@ export type ModalType =
   | "MessageModal"
   | "ResumeModal"
   | "LoadingModal"
-  | "InterviewModal";
+  | "InterviewModal"
+  | "ResumeListModal";
 
 export interface ModalField {
   id: string; // 입력 필드의 아이디

@@ -122,13 +122,31 @@ $radius-round: $radius-base * 1.2;
 /* 전체 컨테이너: width, max-width, max-height 설정 */
 .modal-container {
   position: relative;
-  width: 90vw; /* 화면 너비의 90% */
-  max-width: 1300px; /* 실제 최대 너비 */
-  max-height: 90vh; /* 화면 높이의 90% */
+  /* 가로 크기: 화면 90%와 --modal-max-w 중 더 작은 값 */
+  width: min(90vw, var(--modal-max-w, 1300px));
+  max-height: var(--modal-max-h, 90vh);
+
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden; /* body 스크롤만 동작하도록 */
+}
+
+/* 사이즈 프리셋 (필요한 것만 사용) */
+.modal--xs {
+  --modal-max-w: 360px;
+}
+.modal--sm {
+  --modal-max-w: 520px;
+}
+.modal--md {
+  --modal-max-w: 720px;
+}
+.modal--lg {
+  --modal-max-w: 1000px;
+}
+.modal--xl {
+  --modal-max-w: 1300px;
 }
 
 .modal-header {
