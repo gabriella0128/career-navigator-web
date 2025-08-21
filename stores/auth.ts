@@ -3,6 +3,7 @@ import type { CommonResponse } from "~/types/common";
 import { AuthAPI } from "~/api/authAPI";
 import type { ApiObject } from "~/types/api";
 import { ApiMethod } from "~/types/api";
+import { joinURL } from "ufo";
 
 export const useAuthStore = defineStore("auth", () => {
   const loginInfo: Ref<LoginInfo> = ref({
@@ -75,17 +76,19 @@ export const useAuthStore = defineStore("auth", () => {
    */
   const pageAuthCheck = async (retryCount: number = 1): Promise<void> => {
     try {
-      const response = await $fetch<CommonResponse<void>>(
-        AuthAPI.PAGE_AUTH_CHECK,
-        {
-          method: ApiMethod.POST,
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ url: pageUrl.value }),
-        }
+      const config = useRuntimeConfig();
+      const apiUrl = joinURL(
+        config.public.VITE_API_URL,
+        AuthAPI.PAGE_AUTH_CHECK
       );
+      const response = await $fetch<CommonResponse<void>>(apiUrl, {
+        method: ApiMethod.POST,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: pageUrl.value }),
+      });
 
       isPageAuthenticated.value = response.success;
 
