@@ -19,8 +19,7 @@ export const useSignupStore = defineStore("signup", () => {
   const fieldRules: Record<string, ((v: string) => true | string)[]> = {
     userId: [
       (v: string) =>
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{8,20}$/.test(v) ||
-        "아이디가 유효하지 않습니다.",
+        /^[a-z0-9]{8,20}$/.test(v) || "아이디가 유효하지 않습니다.",
     ],
     userPasswd: [
       (v: string) =>
