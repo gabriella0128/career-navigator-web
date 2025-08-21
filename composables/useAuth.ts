@@ -15,7 +15,7 @@ export const useAuth = () => {
     const statusCode = ref<number>(0);
 
     const { data, execute } = useFetch<CommonResponse<ReissueResponse>>(
-      joinURL(config.public.VITE_API_URL + AuthAPI.REISSUE_TOKEN),
+      joinURL(config.public.VITE_API_URL, AuthAPI.REISSUE_TOKEN),
       {
         method: ApiMethod.POST,
         body: { urlPath: url },
