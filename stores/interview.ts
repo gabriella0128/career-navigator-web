@@ -26,6 +26,10 @@ export const useInterviewStore = defineStore("interview", () => {
     answer: "",
   });
 
+  const resetAnswerInsertReq = () => {
+    answerInsertReq.value.questionIdx = null;
+    answerInsertReq.value.answer = "";
+  };
   const updateDailyQuestiontAnswerInsertReq = (questionIdx: number) => {
     answerInsertReq.value.questionIdx = questionIdx;
   };
@@ -95,6 +99,7 @@ export const useInterviewStore = defineStore("interview", () => {
 
     updateDailyQuestionDetailReq,
     updateDailyQuestiontAnswerInsertReq,
+    resetAnswerInsertReq,
 
     retrieveDailyQuestion,
     generateDailyQuestion,

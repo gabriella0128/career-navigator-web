@@ -14,7 +14,8 @@ const props = defineProps<{
 }>();
 
 const interviewStore = useInterviewStore();
-const { updateDailyQuestiontAnswerInsertReq } = interviewStore;
+const { updateDailyQuestiontAnswerInsertReq, resetAnswerInsertReq } =
+  interviewStore;
 const { dailyQuestionDetail, answerInsertReq, modalMode, dailyQuestions } =
   storeToRefs(interviewStore);
 const { hideModal } = useModal();
@@ -39,6 +40,7 @@ const handleGenerateAnswer = async () => {
     true
   );
   if (!generateResult) return;
+  resetAnswerInsertReq();
 
   const detailResult = await useHandleApi(retrieveDailyQuestionDetail());
   if (!detailResult) return;
