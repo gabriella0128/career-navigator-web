@@ -39,7 +39,7 @@ const monthDays = computed(() => {
     dashboardData.value?.calendar.days.map((d) => [d.date, d.count])
   );
   const arr: CalendarDay[] = [];
-  for (let day = 1; day <= end; day++) {
+  for (let day = start.getDate() + 1; day <= end + 1; day++) {
     const key = new Date(year, month, day).toISOString().slice(0, 10);
     arr.push({ date: key, count: map.get(key) ?? 0 });
   }
