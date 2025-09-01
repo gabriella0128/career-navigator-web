@@ -31,12 +31,17 @@ const monthStart = computed(() => {
 });
 const leadingBlanks = computed(() => monthStart.value.getDay()); // 0(일)~6(토)
 const monthDays = computed(() => {
+  const start = monthStart.value;
+  const year = start.getFullYear();
+  const month = start.getMonth(); // 0~11
+  const end = new Date(year, month + 1, 0).getDate(); // 말일
   const map = new Map(
-    dashboardData.value?.calendar.days.map((d) => [String(d.date), d.count])
+    dashboardData.value?.calendar.days.map((d) => [d.date, d.count])
   );
   const arr: CalendarDay[] = [];
-  for (let day = 1; day <= dashboardData.value!.calendar.days.length; day++) {
-    arr.push({ date: String(day), count: map.get(String(day)) ?? 0 });
+  for (let day = 1; day <= end; day++) {
+    const key = new Date(year, month, day).toISOString().slice(0, 10);
+    arr.push({ date: key, count: map.get(key) ?? 0 });
   }
   return arr;
 });
@@ -176,7 +181,7 @@ onMounted(async () => {
               </div>
 
               <div class="muted mt-8">
-                색이 진할수록 해당 일의 답변 수가 많습니다.
+                색 진할수록 해당 일의 답변 수가 많습니다.
               </div>
             </v-card>
           </v-col>
