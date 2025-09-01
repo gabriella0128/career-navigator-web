@@ -32,7 +32,7 @@ const monthStart = computed(() => {
 const leadingBlanks = computed(() => monthStart.value.getDay()); // 0(일)~6(토)
 const monthDays = computed(() => {
   const map = new Map(
-    dashboardData.value?.calendar.days.map((d) => [d.date, d.count])
+    dashboardData.value?.calendar.days.map((d) => [String(d.date), d.count])
   );
   const arr: CalendarDay[] = [];
   for (let day = 1; day <= dashboardData.value!.calendar.days.length; day++) {
